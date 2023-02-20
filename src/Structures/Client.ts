@@ -68,7 +68,7 @@ export class ExtendedClient extends Client {
       });
     });
 
-    /* Message Counter*/
+    /* Message Counting */
     this.on("messageCreate", async (message) => {
       await profileSchema.findOneAndUpdate(
         {
