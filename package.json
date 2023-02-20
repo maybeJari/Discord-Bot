@@ -1,22 +1,27 @@
 {
   "name": "goosecord-bot",
   "version": "1.0.0",
-  "description": "",
+  "description": "Open Source Discord Bot from Jari with ❤️!",
   "main": "src/index.ts",
   "scripts": {
-    "run": "npx nodemon"
+    "start": "ts-node src/index.ts",
+    "start:dev": "ts-node-dev src/index.ts",
+    "build": "tsc",
+    "watch": "tsc -w"
   },
   "keywords": [],
   "author": "Jari Juvonen",
   "license": "ISC",
   "dependencies": {
     "discord.js": "^14.7.1",
-    "wokcommands": "^2.1.0"
+    "dotenv": "^16.0.3",
+    "mongoose": "^6.9.2"
   },
   "devDependencies": {
-    "dotenv": "^16.0.3",
-    "nodemon": "^2.0.20",
+    "@types/glob": "^8.0.1",
+    "@types/node": "^18.14.0",
     "ts-node": "^10.9.1",
+    "ts-node-dev": "^2.0.0",
     "typescript": "^4.9.5"
   }
 }
