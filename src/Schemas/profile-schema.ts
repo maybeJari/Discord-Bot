@@ -14,6 +14,9 @@ const profileSchema = new Schema({
     type: Number,
     default: 0,
   },
+  total_xp: {
+    default: 0,
+  },
   level: {
     type: Number,
     default: 1,
