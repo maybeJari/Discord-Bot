@@ -9,8 +9,12 @@ import glob from "glob";
 import { promisify } from "util";
 import { RegisterCommandsOptions } from "../typings/client";
 import { Event } from "./Event";
+import mongoose from "mongoose";
+require("dotenv/config");
 
 const globPromise = promisify(glob);
+
+const profileSchema = require("../Schemas/profile-schema");
 
 export class ExtendedClient extends Client {
   commands: Collection<string, CommandType> = new Collection();
@@ -21,7 +25,12 @@ export class ExtendedClient extends Client {
 
   start() {
     this.registerModules();
+    /* Bot Login */
     this.login(process.env.TOKEN);
+    /* Mongo Connect */
+    mongoose.connect(process.env.MONGO || "", {
+      keepAlive: true,
+    });
   }
   async importFile(filePath: string) {
     return (await import(filePath))?.default;
@@ -59,6 +68,25 @@ export class ExtendedClient extends Client {
       });
     });
 
+    /* Message Counter*/
+    this.on("messageCreate", async (message) => {
+      await profileSchema.findOneAndUpdate(
+        {
+          _id: message.author.id,
+        },
+        {
+          userId: message.author.id,
+          userName: message.author.tag,
+          $inc: {
+            messageCount: 1,
+          },
+        },
+        {
+          upsert: true,
+        }
+      );
+    });
+
     // Event
     const eventFiles = await globPromise(`${__dirname}/../events/*{.ts,.js}`);
     eventFiles.forEach(async (filePath) => {
@@ -67,3 +95,4 @@ export class ExtendedClient extends Client {
     });
   }
 }
+export { Client };
