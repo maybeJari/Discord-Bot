@@ -5,7 +5,7 @@ const reqString = {
   required: true,
 };
 
-const userLevels = new Schema({
+const userLevels_Schema = new Schema({
   _id: reqString,
   userId: reqString,
   userName: reqString,
@@ -25,5 +25,5 @@ const userLevels = new Schema({
   },
 });
 
-const name = "user-levels";
-module.exports = models[name] || model(name, userLevels);
+const name = "UserLevel";
+module.exports = models[name] || model(name, userLevels_Schema);

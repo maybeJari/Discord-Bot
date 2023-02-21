@@ -5,17 +5,17 @@ const reqString = {
   required: true,
 };
 
-const userMessages = new Schema({
+const userMessages_Schema = new Schema({
   _id: reqString,
   userId: reqString,
   userName: reqString,
   guildId: reqString,
 
-  messageCount: {
+  message_count: {
     type: Number,
     default: 0,
   },
 });
 
-const name = "user-messages";
-module.exports = models[name] || model(name, userMessages);
+const name = "UserMessages";
+module.exports = models[name] || model(name, userMessages_Schema);
