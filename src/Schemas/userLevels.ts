@@ -5,10 +5,11 @@ const reqString = {
   required: true,
 };
 
-const profileSchema = new Schema({
+const userLevels = new Schema({
   _id: reqString,
   userId: reqString,
   userName: reqString,
+  guildId: reqString,
 
   xp: {
     type: Number,
@@ -21,11 +22,7 @@ const profileSchema = new Schema({
     type: Number,
     default: 1,
   },
-  messageCount: {
-    type: Number,
-    default: 0,
-  },
 });
 
-const name = "user-profiles";
-module.exports = models[name] || model(name, profileSchema);
+const name = "user-levels";
+module.exports = models[name] || model(name, userLevels);
