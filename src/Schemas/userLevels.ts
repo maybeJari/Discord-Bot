@@ -16,6 +16,7 @@ const userLevels = new Schema({
     default: 0,
   },
   total_xp: {
+    type: Number,
     default: 0,
   },
   level: {
