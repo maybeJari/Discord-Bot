@@ -3,7 +3,6 @@ import {
   Client,
   ClientEvents,
   Collection,
-  Guild,
 } from "discord.js";
 import { CommandType } from "../typings/Command";
 import glob from "glob";
@@ -14,8 +13,6 @@ import mongoose from "mongoose";
 require("dotenv/config");
 
 const globPromise = promisify(glob);
-
-const userMessages = require("../Schemas/userMessages");
 
 export class ExtendedClient extends Client {
   commands: Collection<string, CommandType> = new Collection();
@@ -67,27 +64,6 @@ export class ExtendedClient extends Client {
         commands: slashCommands,
         guildId: process.env.GUILD,
       });
-    });
-
-    /* Message Counting */
-    this.on("messageCreate", async (message) => {
-      await userMessages.findOneAndUpdate(
-        {
-          _id: message.author.id,
-          guildId: message.guild?.id,
-        },
-        {
-          userId: message.author.id,
-          userName: message.author.tag,
-          $inc: {
-            messageCount: 1,
-          },
-        },
-        {
-          upsert: true,
-          new: true,
-        }
-      );
     });
 
     // Event
